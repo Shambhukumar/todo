@@ -47,7 +47,7 @@ exports.CreateUserOrLogin = (req,res)=>{
                 if(createResp){
                     createResp.password = undefined;
                     const token = jwt.sign({user: createResp, iat: Date.now()+(50*1000)}, process.env.SECRET)
-                    res.cookie("token", token)
+                    res.cookie("token", token,{ sameSite: "none", secure: true })
                     res.status(200).json({
                         status: "Success",
                         data:createResp,
